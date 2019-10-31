@@ -5,6 +5,8 @@ import static com.programmerfriend.reliablerabbitmqamqp.config.RabbitConfigurati
 
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RetryingRabbitListener {
+
+    private Logger logger = LoggerFactory.getLogger(RetryingRabbitListener.class);
 
     private RabbitTemplate rabbitTemplate;
 
@@ -21,7 +25,7 @@ public class RetryingRabbitListener {
 
     @RabbitListener(queues = PRIMARY_QUEUE)
     public void primary(Message in) throws Exception {
-        System.out.println("Message read from testq : " + in);
+        logger.info("Message read from workerQueue : " + in);
         if (hasExceededRetryCount(in)) {
             putIntoParkingLot(in);
             return;
@@ -40,7 +44,7 @@ public class RetryingRabbitListener {
     }
 
     private void putIntoParkingLot(Message failedMessage) {
-        System.out.println("Retries exeeded putting into parking lot");
+        logger.info("Retries exeeded putting into parking lot");
         this.rabbitTemplate.send(PARKINGLOT_QUEUE, failedMessage);
     }
 }

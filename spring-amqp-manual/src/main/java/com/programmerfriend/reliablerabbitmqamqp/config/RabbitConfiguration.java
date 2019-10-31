@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfiguration {
 
-    public static final String EXCHANGE_NAME = "tutorial-exchange";
+    private static final String EXCHANGE_NAME = "tutorial-exchange";
     public static final String PRIMARY_QUEUE = "primaryWorkerQueue";
 
-    public static final String WAIT_QUEUE = PRIMARY_QUEUE + ".wait";
+    private static final String WAIT_QUEUE = PRIMARY_QUEUE + ".wait";
 
     public static final String PARKINGLOT_QUEUE = PRIMARY_QUEUE + ".parkingLot";
 

@@ -7,10 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ReliableSimplifiedRabbitmqAmqpApplication implements CommandLineRunner {
+public class ReliableRabbitmqApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
-        SpringApplication.run(ReliableSimplifiedRabbitmqAmqpApplication.class, args);
+        SpringApplication.run(ReliableRabbitmqApplication.class, args);
     }
 
     @Autowired
